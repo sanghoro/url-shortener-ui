@@ -8,8 +8,13 @@ function App () {
   const [urls, setUrls] = useState([]);
 
   useEffect(() => {
+    getUrls().then(data => {
+      console.log('fetche data', data)
+      setUrls(data.urls)
+    })
+    .catch(err => console.log(err))
 
-  })
+  }, [])
 
   return (
     <main className="App">
@@ -18,7 +23,7 @@ function App () {
         <UrlForm />
       </header>
 
-      <UrlContainer urls={"<<<Urls should go here>>>"}/>
+      <UrlContainer urls={urls}/>
     </main>
   );
 }
