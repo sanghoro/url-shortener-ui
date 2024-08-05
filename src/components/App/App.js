@@ -4,21 +4,33 @@ import { getUrls } from '../../apiCalls';
 import UrlContainer from '../UrlContainer/UrlContainer';
 import UrlForm from '../UrlForm/UrlForm';
 
+
 function App () {
   const [urls, setUrls] = useState([]);
 
-  useEffect(() => {
+  const addUrls = (postedUrl) => {
+    setUrls(prev => [...prev, postedUrl ])
+  }
 
-  })
+  useEffect(() => {
+    getUrls().then(data => {
+      console.log('fetche data', data)
+      setUrls(data.urls)
+    })
+    .catch(err => console.log(err))
+
+  }, [])
+
+
 
   return (
     <main className="App">
       <header>
         <h1>URL Shortener</h1>
-        <UrlForm />
+        <UrlForm addUrls={addUrls}/>
       </header>
 
-      <UrlContainer urls={"<<<Urls should go here>>>"}/>
+      <UrlContainer urls={urls}/>
     </main>
   );
 }
