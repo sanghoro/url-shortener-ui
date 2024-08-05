@@ -4,8 +4,13 @@ import { getUrls } from '../../apiCalls';
 import UrlContainer from '../UrlContainer/UrlContainer';
 import UrlForm from '../UrlForm/UrlForm';
 
+
 function App () {
   const [urls, setUrls] = useState([]);
+
+  const addUrls = (postedUrl) => {
+    setUrls(prev => [...prev, postedUrl ])
+  }
 
   useEffect(() => {
     getUrls().then(data => {
@@ -16,11 +21,13 @@ function App () {
 
   }, [])
 
+
+
   return (
     <main className="App">
       <header>
         <h1>URL Shortener</h1>
-        <UrlForm />
+        <UrlForm addUrls={addUrls}/>
       </header>
 
       <UrlContainer urls={urls}/>
